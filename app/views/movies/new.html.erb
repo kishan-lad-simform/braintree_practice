@@ -1,0 +1,22 @@
+<%= form_with model: @movie do |form| %>
+<center>
+  <h1>Add Movie</h1><br>
+
+  <%= form.label :movie_name %>
+  <%= form.text_field :movie_name %> <br><br>
+
+  <%= form.label :show_time %>
+  <%= form.time_select :show_time %><br><br>
+
+  <%= form.label :price %>
+  <%= form.text_field :price%><br><br>
+
+  <%= form.label :quantity %>
+  <%= form.text_field :quantity %><br><br>
+  
+  <%= form.file_field :movie_image %><br><br>
+
+  <%= form.submit 'Add Movie' %>
+</center>
+<% end %>
+
