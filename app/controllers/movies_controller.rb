@@ -28,7 +28,6 @@ class MoviesController < ApplicationController
           :movie_name,
           :price,
           :quantity,
-          :show_time,
           :movie_image
         )
     end
