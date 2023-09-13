@@ -1,0 +1,28 @@
+<center>
+  <h1> List of Movies </h1>
+  <b> Welcome <%= current_user.name %> </b> <br/>
+  <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete } %> <br><br>
+  <table border=1>
+    <thead>
+      <tr>  
+        <th>Id</th>
+        <th>Movie</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Ticket Left</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @movies.each do |movie| %>
+        <tr>
+          <td> <%= movie.id %> </td>
+          <td> <%= image_tag movie.movie_image.url, size: '100x100' %> </td>
+          <td> <%= movie.movie_name %> </td>
+          <td> <%= movie.price %> </td>
+          <td> <%= movie.quantity %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+</center>
