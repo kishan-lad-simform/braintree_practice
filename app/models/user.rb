@@ -6,4 +6,8 @@ class User < ApplicationRecord
          
   has_many :purchases, foreign_key: :buyer_id
   has_many :movies, through: :purchases
+
+  def has_payment_info?
+    # braintree_customer_id 
+  end
 end

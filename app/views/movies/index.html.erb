@@ -9,7 +9,7 @@
         <th>Movie</th>
         <th>Name</th>
         <th>Price</th>
-        <th>Ticket Left</th>
+        <th>Purchase</th>
       </tr>
     </thead>
 
@@ -20,7 +20,9 @@
           <td> <%= image_tag movie.movie_image.url, size: '100x100' %> </td>
           <td> <%= movie.movie_name %> </td>
           <td> <%= movie.price %> </td>
-          <td> <%= movie.quantity %> </td>
+          <td>
+            <%=link_to "But Ticket", new_transaction_path, class: "button" %>
+          </td>
         </tr>
       <% end %>
     </tbody>
