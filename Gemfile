@@ -76,6 +76,3 @@ gem "devise", "~> 4.9"
 gem "carrierwave", "~> 3.0"
 
 gem 'braintree'
-
-gem 'figaro'
-gem "gon", "~> 6.4"
