@@ -1,4 +1,5 @@
 class CheckoutsController < ApplicationController
+  # before_action :find_movie, only: [ :new, :create ]
   TRANSACTION_SUCCESS_STATUSES = [
     Braintree::Transaction::Status::Authorizing,
     Braintree::Transaction::Status::Authorized,
@@ -8,26 +9,37 @@ class CheckoutsController < ApplicationController
     Braintree::Transaction::Status::Settling,
     Braintree::Transaction::Status::SubmittedForSettlement,
   ]
+
   def new
     @client_token = Braintree::ClientToken.generate
+    find_movie(params[:movie_id])
   end
 
+  def show
+    @transaction = Braintree::Transaction.find(params[:id])
+    @result = _create_result_hash(@transaction)
+  end
 
   def create
-    amount = 150 # In production you should not take amounts directly from clients
+    @movie = params[:movie_id]
+    find_movie(@movie)
+    amount = @price# In production you should not take amounts directly from clients
     nonce = params["payment_method_nonce"]
-
     result = Braintree::Transaction.sale(
       amount: amount,
-      payment_method_nonce: params[:payment_method_nonce]
+      payment_method_nonce: nonce,
+      :options => {
+        :submit_for_settlement => true
+      }
     )
-
+    
     if result.success? || result.transaction
-      redirect_to root_path
+      redirect_to checkout_path(result.transaction.id)
     else
+      debugger
       error_messages = result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
       flash[:error] = error_messages
-      redirect_to new_checkout_path
+      render new_checkout_url(@movie_id)
     end
   end
 
@@ -51,12 +63,16 @@ class CheckoutsController < ApplicationController
 
   def gateway
     env = ENV["BT_ENVIRONMENT"]
-
     @gateway ||= Braintree::Gateway.new(
-      environment => env && env.to_sym,
-      merchant_id => ENV["MERCHANT_ID"],
-      public_key => ENV["PUBLIC_ID"],
-      private_key => ENV["PRIVATE_ID"],
+      :environment => env && env.to_sym,
+      :merchant_id => ENV["MERCHANT_ID"],
+      :public_key => ENV["PUBLIC_ID"],
+      :private_key => ENV["PRIVATE_ID"],
     )
+  end
+
+  def find_movie(id)
+    @movie = Movie.find(id)
+    @price = @movie.price
   end
 end
