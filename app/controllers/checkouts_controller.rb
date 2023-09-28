@@ -36,7 +36,6 @@ class CheckoutsController < ApplicationController
     if result.success? || result.transaction
       redirect_to checkout_path(result.transaction.id)
     else
-      debugger
       error_messages = result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
       flash[:error] = error_messages
       render new_checkout_url(@movie_id)

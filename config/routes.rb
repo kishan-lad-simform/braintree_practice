@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   devise_for :users
   get 'checkout/new(/:movie_id)', to: 'checkouts#new', as: 'new_checkout'
   post 'checkouts(/:movie_id)', to: 'checkouts#create', as: 'checkouts'
-  
   resources :movies
   resources :checkouts
   root 'movies#index'

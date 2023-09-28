@@ -5,17 +5,29 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <script src="https://js.braintreegateway.com/web/dropin/1.40.1/js/dropin.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.97.2/js/paypal-checkout.min.js"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-suppress-warning' => true, 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'checkout' %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% flash.each do |type, message| %>
+      <% if type.eql?("alert") %>
+        <div class="alert alert-danger" role="alert">
+          <%= message %>
+        </div>
+      <% else %>
+        <div class="alert alert-secondary" role="alert">
+          <%= message %>
+        </div>
+      <% end %>   
+    <% end %>    
+    
     <%= yield %>
   </body>
 </html>

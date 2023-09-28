@@ -76,3 +76,7 @@ gem "devise", "~> 4.9"
 gem "carrierwave", "~> 3.0"
 
 gem 'braintree'
+
+gem "bootstrap", "~> 5.3"
+
+gem "jquery-rails", "~> 4.6"

@@ -1,8 +1,12 @@
-<center>
+<div class="container-sm ">
   <h1> List of Movies </h1>
-  <b> Welcome <%= current_user.name %> </b> <br/>
-  <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete } %> <br><br>
-  <table border=1>
+  <b> Welcome <%= current_user.name %> </b> 
+  <%= button_to "Logout", 
+    destroy_user_session_path, 
+    method: :delete, 
+    class: "btn btn-primary" %> <br>
+
+  <table class="table table-hover">
     <thead>
       <tr>  
         <th>Id</th>
@@ -12,19 +16,22 @@
         <th>Purchase</th>
       </tr>
     </thead>
-
     <tbody>
       <% @movies.each do |movie| %>
         <tr>
           <td> <%= movie.id %> </td>
-          <td> <%= image_tag movie.movie_image.url, size: '100x100' %> </td>
+          <td> <%= image_tag movie.movie_image.url, 
+            size: '100x100' %> 
+          </td>
           <td> <%= movie.movie_name %> </td>
           <td> <%= movie.price %> </td>
           <td>
-            <%=link_to "But Ticket", new_checkout_path(movie_id: movie.id), class: "button" %>
+            <%= link_to "But Ticket", 
+              new_checkout_path(movie_id: movie.id), 
+              class: "btn btn-secondary" %>
           </td>
         </tr>
       <% end %>
-    </tbody>
+    </tbody>  
   </table>  
-</center>
+</div>
