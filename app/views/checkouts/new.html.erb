@@ -15,7 +15,10 @@
                 <label for="amount">
                   <%= form.label 'Amount', class: "input-label" %> 
                   <div class="input-wrapper amount-wrapper">
-                    <%= form.text_field :price, value: @price, class: "form-control-plaintext" %>
+                    <%= form.text_field :price, 
+                      value: @price, 
+                      class: "form-control-plaintext", 
+                      readonly: true %>
                   </div>
                 </label>
                 <div class="bt-drop-in-wrapper">
