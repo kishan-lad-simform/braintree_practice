@@ -13,7 +13,7 @@
             <%= form_with url: "/checkouts", id: "payment-form" do |form| %>
               <section>
                 <label for="amount">
-                  <%= form.label 'Amount', class: "input-label" %>
+                  <%= form.label 'Amount', class: "input-label" %> 
                   <div class="input-wrapper amount-wrapper">
                     <%= form.text_field :price, value: @price, class: "form-control-plaintext" %>
                   </div>
@@ -22,9 +22,9 @@
                   <div id="bt-dropin"></div>
                 </div>
               </section>
-              <input type="hidden" name="movie_id" value=<%= @movie.id %>>
-              <input type="hidden" id="nonce" name="payment_method_nonce" />
-              <button class="button" type="submit"><span>Test Transaction</span></button>
+              <%= form.hidden_field :movie_id, value: @movie.id %>
+              <%= form.hidden_field :payment_method_nonce, id: "nonce" %>
+              <%= button_to 'Test Transcation', class: 'btn btn-Primary', type: "submit" %>
             <% end %>
           </div>
         </div>
