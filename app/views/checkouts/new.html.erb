@@ -1,3 +1,7 @@
+<script src="https://pay.google.com/gp/p/js/pay.js"></script> 
+ <script src="https://js.braintreegateway.com/web/3.97.2/js/client.min.js"></script> 
+ <script src="https://js.braintreegateway.com/web/3.97.2/js/google-payment.min.js"></script>
+ 
 <div class="container-sm center">
   <div class="card">
     <div class="card-body">
@@ -35,15 +39,28 @@
     </div>
   </div>
 </div>
+
+<script src="https://js.braintreegateway.com/web/dropin/1.30.0/js/dropin.min.js"></script>
+
+
 <script>
 var form = document.querySelector('#payment-form');
 var client_token = "<%= @client_token %>";
 
-  braintree.dropin.create({
-    authorization: client_token,
-    container: '#bt-dropin'
-  
-  }, function (createErr, instance) {
+
+braintree.dropin.create({
+  authorization: "<%= @client_token %>",
+  container: '#bt-dropin',
+  // googlePay: {
+  //   googlePayVersion: 2,
+  //   merchantId: 'your_braintree_merchant_id', // Use the Merchant ID obtained from Braintree
+  //   transactionInfo: {
+  //     totalPriceStatus: 'FINAL',
+  //     totalPrice: '<%= @price %>',
+  //     currencyCode: 'USD'
+  //   }
+  // }
+}, function (createErr, instance) {
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       instance.requestPaymentMethod(function (err, payload) {
